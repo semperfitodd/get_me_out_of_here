@@ -53,9 +53,6 @@ coverage/
 # Android
 **/android/*
 
-# iOS
-**/ios/*
-
 # Fastlane
 fastlane/report.xml
 fastlane/Preview.html
@@ -85,9 +82,4 @@ metro.config.js
 *.bundle/
 
 # Specific files and directories to exclude
-../2024_fitness_goals_ios/fitnessapp_ios/jest.config.js
-../2024_fitness_goals_ios/fitnessapp_ios/metro.config.js
-../2024_fitness_goals_ios/fitnessapp_ios/package-lock.json
-../2024_fitness_goals_ios/fitnessapp_ios/tsconfig.json
-
-**/GoogleService-Info.plist
+Secrets.plist
