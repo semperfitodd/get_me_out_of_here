@@ -14,6 +14,15 @@ struct ContentView: View {
         return url
     }
 
+    private var apiKey: String {
+        guard let path = Bundle.main.path(forResource: "Secrets", ofType: "plist"),
+              let dict = NSDictionary(contentsOfFile: path),
+              let key = dict["API_KEY"] as? String else {
+            fatalError("API_KEY not found in Secrets.plist")
+        }
+        return key
+    }
+
     var body: some View {
         ZStack {
             Color.black
@@ -94,6 +103,7 @@ struct ContentView: View {
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        request.addValue(apiKey, forHTTPHeaderField: "x-api-key")
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {

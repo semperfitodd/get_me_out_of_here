@@ -40,19 +40,34 @@ module "api_gateway" {
     throttling_rate_limit    = 50
   }
 
+  authorizers = {
+    lambda = {
+      authorizer_payload_format_version = "2.0"
+      authorizer_type                   = "REQUEST"
+      authorizer_uri                    = module.lambda_authorizer.lambda_function_invoke_arn
+      enable_simple_responses           = true
+      identity_sources                  = ["$request.header.x-api-key"]
+      name                              = "APIKeyAuthorizer"
+    }
+  }
+
   routes = {
-    "POST /call" = {
+    "ANY /call" = {
+      authorization_type = "CUSTOM"
+      authorizer_key     = "lambda"
       integration = {
-        method = "ANY"
-        uri    = module.lambda_connect_outbound.lambda_function_arn
-        payload_format_version = "2.0"
+        method                 = "ANY"
+        uri                    = module.lambda_connect_outbound.lambda_function_arn
+        payload_format_version = "1.0"
       }
     }
     "$default" = {
+      authorization_type = "CUSTOM"
+      authorizer_key     = "lambda"
       integration = {
-        method = "ANY"
-        uri    = module.lambda_connect_outbound.lambda_function_arn
-        payload_format_version = "2.0"
+        method                 = "ANY"
+        uri                    = module.lambda_connect_outbound.lambda_function_arn
+        payload_format_version = "1.0"
       }
     }
   }
