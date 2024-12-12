@@ -1,6 +1,6 @@
 # Get Me Out of Here
 
-![logo.png](img/logo.png)
+<img src="img/logo.png" alt="Logo" style="width: 150px; height: auto;">
 
 ## Project Overview
 
@@ -9,6 +9,8 @@ This project provides a way to escape awkward situations by simulating a call fr
 ---
 
 ## Backend
+
+![architecture.png](img/architecture.png)
 
 The backend is built using AWS services and Terraform for infrastructure as code. Below are key components:
 
@@ -52,7 +54,7 @@ Store the generated API key in AWS Secrets Manager and update `Secrets.plist` fo
 
 ## Frontend (iOS App)
 
-![ios_app_0.jpeg](img/ios_app_0.jpeg)
+<img src="img/ios_app_0.jpeg" alt="App Screenshot" style="width: 150px; height: auto;">
 
 The iOS app is built using SwiftUI and integrates with the backend API Gateway. It features:
 
@@ -60,7 +62,7 @@ The iOS app is built using SwiftUI and integrates with the backend API Gateway. 
 2. API call to trigger the backend.
 3. User feedback on the status of the request.
 
-![ios_app_1.jpeg](img/ios_app_1.jpeg)
+<img src="img/ios_app_1.jpeg" alt="App Screenshot" style="width: 150px; height: auto;">
 
 ## Setup Instructions
 
