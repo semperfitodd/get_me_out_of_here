@@ -24,7 +24,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5F9D63FD2D09DDEC00AF4DEB /* get_me_out_of_here.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = get_me_out_of_here.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F9D63FD2D09DDEC00AF4DEB /* Help! caller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Help! caller.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9D640D2D09DDEE00AF4DEB /* get_me_out_of_hereTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = get_me_out_of_hereTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9D64172D09DDEE00AF4DEB /* get_me_out_of_hereUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = get_me_out_of_hereUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -85,7 +85,7 @@
 		5F9D63FE2D09DDEC00AF4DEB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5F9D63FD2D09DDEC00AF4DEB /* get_me_out_of_here.app */,
+				5F9D63FD2D09DDEC00AF4DEB /* Help! caller.app */,
 				5F9D640D2D09DDEE00AF4DEB /* get_me_out_of_hereTests.xctest */,
 				5F9D64172D09DDEE00AF4DEB /* get_me_out_of_hereUITests.xctest */,
 			);
@@ -114,7 +114,7 @@
 			packageProductDependencies = (
 			);
 			productName = get_me_out_of_here;
-			productReference = 5F9D63FD2D09DDEC00AF4DEB /* get_me_out_of_here.app */;
+			productReference = 5F9D63FD2D09DDEC00AF4DEB /* Help! caller.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5F9D640C2D09DDEE00AF4DEB /* get_me_out_of_hereTests */ = {
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5F9D63F82D09DDEC00AF4DEB /* Build configuration list for PBXProject "get_me_out_of_here" */;
+			buildConfigurationList = 5F9D63F82D09DDEC00AF4DEB /* Build configuration list for PBXProject "Help! caller" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -400,6 +400,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_CFBundleDisplayName = "Help! caller";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -411,10 +413,14 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bernsonfamily.get-me-out-of-here";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Help! caller";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -430,6 +436,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_CFBundleDisplayName = "Help! caller";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -441,10 +449,14 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bernsonfamily.get-me-out-of-here";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Help! caller";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -523,7 +535,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5F9D63F82D09DDEC00AF4DEB /* Build configuration list for PBXProject "get_me_out_of_here" */ = {
+		5F9D63F82D09DDEC00AF4DEB /* Build configuration list for PBXProject "Help! caller" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5F9D641F2D09DDEE00AF4DEB /* Debug */,

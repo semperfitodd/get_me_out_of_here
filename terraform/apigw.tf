@@ -75,19 +75,10 @@ module "api_gateway" {
   tags = var.tags
 }
 
-resource "aws_acm_certificate" "this" {
-  domain_name       = local.domain_name
-  validation_method = "DNS"
-
-  tags = merge(var.tags,
-    {
-      Name = local.domain_name
-    }
-  )
-
-  lifecycle {
-    create_before_destroy = true
-  }
+resource "aws_apigatewayv2_api_mapping" "this" {
+  api_id      = module.api_gateway.api_id
+  domain_name = aws_apigatewayv2_domain_name.this.id
+  stage       = module.api_gateway.stage_id
 }
 
 resource "aws_apigatewayv2_domain_name" "this" {
@@ -100,43 +91,8 @@ resource "aws_apigatewayv2_domain_name" "this" {
   }
 }
 
-resource "aws_apigatewayv2_api_mapping" "this" {
-  api_id      = module.api_gateway.api_id
-  domain_name = aws_apigatewayv2_domain_name.this.id
-  stage       = module.api_gateway.stage_id
-}
-
 resource "aws_cloudwatch_log_group" "api_gw" {
   name = "/aws/api_gw/${var.environment}"
 
   retention_in_days = 3
-}
-
-resource "aws_route53_record" "this" {
-  name    = aws_apigatewayv2_domain_name.this.domain_name
-  type    = "A"
-  zone_id = data.aws_route53_zone.this.zone_id
-
-  alias {
-    name                   = aws_apigatewayv2_domain_name.this.domain_name_configuration[0].target_domain_name
-    zone_id                = aws_apigatewayv2_domain_name.this.domain_name_configuration[0].hosted_zone_id
-    evaluate_target_health = false
-  }
-}
-
-resource "aws_route53_record" "verify" {
-  for_each = {
-    for dvo in aws_acm_certificate.this.domain_validation_options : dvo.domain_name => {
-      name   = dvo.resource_record_name
-      record = dvo.resource_record_value
-      type   = dvo.resource_record_type
-    }
-  }
-
-  allow_overwrite = true
-  name            = each.value.name
-  records         = [each.value.record]
-  ttl             = 60
-  type            = each.value.type
-  zone_id         = data.aws_route53_zone.this.zone_id
 }
