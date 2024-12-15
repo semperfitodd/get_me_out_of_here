@@ -4,40 +4,16 @@
   "Actions": [
     {
       "Parameters": {
-        "Text": "There is an emergency! You must call your supervisor!"
+        "Text": "$.Attributes.emergency_message"
       },
       "Identifier": "05d8e67a-a27f-406c-8f40-35b721b8a61f",
       "Type": "MessageParticipant",
       "Transitions": {
-        "NextAction": "22399eba-b464-4173-aba0-82fe65ea3b74"
-      }
-    },
-    {
-      "Parameters": {
-        "LoopCount": "3"
-      },
-      "Identifier": "22399eba-b464-4173-aba0-82fe65ea3b74",
-      "Type": "Loop",
-      "Transitions": {
         "NextAction": "eea5f24f-64e8-478d-9d4f-b1411e0caa9f",
-        "Conditions": [
-          {
-            "NextAction": "05d8e67a-a27f-406c-8f40-35b721b8a61f",
-            "Condition": {
-              "Operator": "Equals",
-              "Operands": [
-                "ContinueLooping"
-              ]
-            }
-          },
+        "Errors": [
           {
             "NextAction": "eea5f24f-64e8-478d-9d4f-b1411e0caa9f",
-            "Condition": {
-              "Operator": "Equals",
-              "Operands": [
-                "DoneLooping"
-              ]
-            }
+            "ErrorType": "NoMatchingError"
           }
         ]
       }

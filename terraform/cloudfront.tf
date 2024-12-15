@@ -69,7 +69,37 @@ module "cdn" {
 
   ordered_cache_behavior = [
     {
-      path_pattern           = "/call"
+      path_pattern           = "/boss"
+      target_origin_id       = "api_gw"
+      viewer_protocol_policy = "redirect-to-https"
+
+      allowed_methods = ["GET", "HEAD", "OPTIONS", "POST", "DELETE", "PUT", "PATCH"]
+      cached_methods  = ["GET", "HEAD"]
+      compress        = true
+      query_string    = true
+    },
+    {
+      path_pattern           = "/mom"
+      target_origin_id       = "api_gw"
+      viewer_protocol_policy = "redirect-to-https"
+
+      allowed_methods = ["GET", "HEAD", "OPTIONS", "POST", "DELETE", "PUT", "PATCH"]
+      cached_methods  = ["GET", "HEAD"]
+      compress        = true
+      query_string    = true
+    },
+    {
+      path_pattern           = "/police"
+      target_origin_id       = "api_gw"
+      viewer_protocol_policy = "redirect-to-https"
+
+      allowed_methods = ["GET", "HEAD", "OPTIONS", "POST", "DELETE", "PUT", "PATCH"]
+      cached_methods  = ["GET", "HEAD"]
+      compress        = true
+      query_string    = true
+    },
+    {
+      path_pattern           = "/sister"
       target_origin_id       = "api_gw"
       viewer_protocol_policy = "redirect-to-https"
 

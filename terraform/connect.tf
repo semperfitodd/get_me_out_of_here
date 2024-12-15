@@ -219,8 +219,8 @@ resource "random_password" "connect_password" {
 
   length = 12
 
-  upper   = true
   lower   = true
-  special = true
   numeric = true
+  special = false
+  upper   = true
 }

@@ -52,7 +52,34 @@ module "api_gateway" {
   }
 
   routes = {
-    "ANY /call" = {
+    "ANY /boss" = {
+      authorization_type = "CUSTOM"
+      authorizer_key     = "lambda"
+      integration = {
+        method                 = "ANY"
+        uri                    = module.lambda_connect_outbound.lambda_function_arn
+        payload_format_version = "1.0"
+      }
+    }
+    "ANY /mom" = {
+      authorization_type = "CUSTOM"
+      authorizer_key     = "lambda"
+      integration = {
+        method                 = "ANY"
+        uri                    = module.lambda_connect_outbound.lambda_function_arn
+        payload_format_version = "1.0"
+      }
+    }
+    "ANY /police" = {
+      authorization_type = "CUSTOM"
+      authorizer_key     = "lambda"
+      integration = {
+        method                 = "ANY"
+        uri                    = module.lambda_connect_outbound.lambda_function_arn
+        payload_format_version = "1.0"
+      }
+    }
+    "ANY /sister" = {
       authorization_type = "CUSTOM"
       authorizer_key     = "lambda"
       integration = {

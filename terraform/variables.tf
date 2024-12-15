@@ -3,7 +3,7 @@ locals {
 }
 
 variable "connect_users" {
-  description = "Usernames to be added to the connect agent"
+  description = "Username to be added to the connect agent"
   type        = map(any)
 
   default = {}
@@ -35,6 +35,13 @@ variable "environment" {
   type        = string
 
   default = null
+}
+
+variable "phone_numbers" {
+  description = "The count of phone numbers to provision"
+  type        = map(any)
+
+  default = {}
 }
 
 variable "region" {

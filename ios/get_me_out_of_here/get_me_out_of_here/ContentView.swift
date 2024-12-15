@@ -28,11 +28,12 @@ struct ContentView: View {
             Color.black
                 .edgesIgnoringSafeArea(.all)
 
-            VStack(spacing: 30) {
+            VStack(spacing: 20) {
+                Spacer()
+
                 HStack {
                     Text("🇺🇸")
                         .font(.largeTitle)
-                        .padding(.leading)
                     TextField("(555) 555-5555", text: $phoneNumber)
                         .keyboardType(.numberPad)
                         .padding()
@@ -48,44 +49,35 @@ struct ContentView: View {
                             phoneNumber = formatPhoneNumber(newValue)
                             UserDefaults.standard.set(phoneNumber, forKey: "userPhoneNumber")
                         }
-                        .padding(.trailing)
                 }
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: 60)
 
                 if isLoading {
                     ProgressView("CALLING...")
                         .foregroundColor(.white)
                 } else {
-                    Button(action: makeApiCall) {
-                        Text("GET ME OUT OF HERE!")
-                            .font(.title2)
-                            .bold()
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.blue, lineWidth: 2)
-                            )
-                            .cornerRadius(20)
+                    VStack(spacing: 10) {
+                        ActionButton(title: "BOSS", endpoint: "boss", makeApiCall: makeApiCall)
+                        ActionButton(title: "MOM", endpoint: "mom", makeApiCall: makeApiCall)
+                        ActionButton(title: "POLICE", endpoint: "police", makeApiCall: makeApiCall)
+                        ActionButton(title: "SISTER", endpoint: "sister", makeApiCall: makeApiCall)
                     }
-                    .padding(.horizontal)
                 }
 
-                if !message.isEmpty {
-                    Text(message)
-                        .font(.body)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                }
+                Text("GET ME OUT OF HERE!")
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(.white)
+                    .padding(.top, 30)
+
+                Spacer()
             }
-            .padding()
+            .padding(.horizontal, 20)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 
-    func makeApiCall() {
+    func makeApiCall(endpoint: String) {
         guard !phoneNumber.isEmpty else {
             message = "Please enter a valid phone number."
             return
@@ -95,7 +87,7 @@ struct ContentView: View {
         let fullPhoneNumber = "+1" + phoneNumber.filter { $0.isNumber }
         let encodedPhoneNumber = fullPhoneNumber.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? fullPhoneNumber
 
-        guard let url = URL(string: "\(apiURL)?phone_number=\(encodedPhoneNumber)") else {
+        guard let url = URL(string: "\(apiURL)/\(endpoint)?phone_number=\(encodedPhoneNumber)") else {
             message = "Invalid API URL."
             isLoading = false
             return
@@ -161,5 +153,29 @@ struct ContentView: View {
         }
 
         return String(formatted.prefix(14))
+    }
+}
+
+struct ActionButton: View {
+    let title: String
+    let endpoint: String
+    let makeApiCall: (String) -> Void
+
+    var body: some View {
+        Button(action: { makeApiCall(endpoint) }) {
+            Text(title)
+                .font(.title2)
+                .bold()
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.red)
+                .foregroundColor(.white)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.blue, lineWidth: 2)
+                )
+                .cornerRadius(20)
+        }
+        .padding(.horizontal)
     }
 }
