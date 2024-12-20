@@ -88,6 +88,15 @@ module "api_gateway" {
         payload_format_version = "1.0"
       }
     }
+    "ANY /custom" = {
+      authorization_type = "CUSTOM"
+      authorizer_key     = "lambda"
+      integration = {
+        method                 = "ANY"
+        uri                    = module.lambda_connect_outbound.lambda_function_arn
+        payload_format_version = "1.0"
+      }
+    }
     "$default" = {
       authorization_type = "CUSTOM"
       authorizer_key     = "lambda"

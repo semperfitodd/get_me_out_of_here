@@ -8,16 +8,17 @@ logger.setLevel(logging.INFO)
 
 connect_client = boto3.client('connect')
 
-
 def lambda_handler(event, context):
     logger.info("Received event: %s", json.dumps(event))
 
     try:
         phone_number = event.get("queryStringParameters", {}).get("phone_number", "").strip()
+        custom_message = event.get("queryStringParameters", {}).get("custom_message", "").strip()
         api_path = event.get("path", "").strip("/")
 
         logger.info("Extracted phone number: '%s'", phone_number)
         logger.info("Extracted API path: '%s'", api_path)
+        logger.info("Extracted custom message: '%s'", custom_message)
 
         if not phone_number:
             logger.error("Phone number is missing from the request")
@@ -32,11 +33,21 @@ def lambda_handler(event, context):
             "mom": "Hey honey! I need you to call me right away!",
             "police": "This is an emergency. Please contact the police immediately!",
             "sister": "Hey, it's your crazy sister! You'll never guess what happened! Call me right away!",
+            "custom": custom_message
         }
 
         logger.info("Available API message paths: %s", list(api_messages.keys()))
 
-        message_text = api_messages.get(api_path, "There is an emergency. Please respond immediately.")
+        if api_path not in api_messages:
+            logger.error("Invalid API path: '%s'", api_path)
+            raise ValueError(f"Invalid API path: {api_path}")
+
+        message_text = api_messages[api_path]
+
+        if api_path == "custom" and not message_text:
+            logger.error("Custom message is missing")
+            raise ValueError("Custom message is required for the 'custom' API path")
+
         logger.info("Message selected for path '%s': '%s'", api_path, message_text)
 
         instance_id = os.environ.get('CONNECT_INSTANCE_ID')

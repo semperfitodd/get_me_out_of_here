@@ -109,6 +109,16 @@ module "cdn" {
       query_string    = true
     },
     {
+      path_pattern           = "/custom"
+      target_origin_id       = "api_gw"
+      viewer_protocol_policy = "redirect-to-https"
+
+      allowed_methods = ["GET", "HEAD", "OPTIONS", "POST", "DELETE", "PUT", "PATCH"]
+      cached_methods  = ["GET", "HEAD"]
+      compress        = true
+      query_string    = true
+    },
+    {
       path_pattern           = "*"
       target_origin_id       = "s3_one"
       viewer_protocol_policy = "redirect-to-https"

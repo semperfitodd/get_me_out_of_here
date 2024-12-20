@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var phoneNumber: String = UserDefaults.standard.string(forKey: "userPhoneNumber") ?? ""
+    @State private var customMessage: String = ""
     @State private var message: String = ""
     @State private var isLoading: Bool = false
 
@@ -61,6 +62,35 @@ struct ContentView: View {
                         ActionButton(title: "MOM", endpoint: "mom", makeApiCall: makeApiCall)
                         ActionButton(title: "POLICE", endpoint: "police", makeApiCall: makeApiCall)
                         ActionButton(title: "SISTER", endpoint: "sister", makeApiCall: makeApiCall)
+
+                        TextField("Custom message", text: $customMessage)
+                            .padding()
+                            .background(Color.black)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.blue, lineWidth: 2)
+                            )
+                            .cornerRadius(20)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+
+                        Button(action: {
+                            makeApiCall(endpoint: "custom", customMessage: customMessage)
+                        }) {
+                            Text("SEND CUSTOM MESSAGE")
+                                .font(.title2)
+                                .bold()
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color.green)
+                                .foregroundColor(.white)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.blue, lineWidth: 2)
+                                )
+                                .cornerRadius(20)
+                        }
+                        .padding(.horizontal)
                     }
                 }
 
@@ -77,7 +107,7 @@ struct ContentView: View {
         }
     }
 
-    func makeApiCall(endpoint: String) {
+    func makeApiCall(endpoint: String, customMessage: String? = nil) {
         guard !phoneNumber.isEmpty else {
             message = "Please enter a valid phone number."
             return
@@ -87,7 +117,13 @@ struct ContentView: View {
         let fullPhoneNumber = "+1" + phoneNumber.filter { $0.isNumber }
         let encodedPhoneNumber = fullPhoneNumber.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? fullPhoneNumber
 
-        guard let url = URL(string: "\(apiURL)/\(endpoint)?phone_number=\(encodedPhoneNumber)") else {
+        var urlString = "\(apiURL)/\(endpoint)?phone_number=\(encodedPhoneNumber)"
+        if endpoint == "custom", let customMessage = customMessage {
+            let encodedMessage = customMessage.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+            urlString += "&custom_message=\(encodedMessage)"
+        }
+
+        guard let url = URL(string: urlString) else {
             message = "Invalid API URL."
             isLoading = false
             return
@@ -159,10 +195,10 @@ struct ContentView: View {
 struct ActionButton: View {
     let title: String
     let endpoint: String
-    let makeApiCall: (String) -> Void
+    let makeApiCall: (String, String?) -> Void
 
     var body: some View {
-        Button(action: { makeApiCall(endpoint) }) {
+        Button(action: { makeApiCall(endpoint, nil) }) {
             Text(title)
                 .font(.title2)
                 .bold()
